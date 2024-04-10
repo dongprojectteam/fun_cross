@@ -1,0 +1,30 @@
+@use 'variables' as *;
+@use 'fonts' as *;
+
+@mixin component-height($height) {
+  height: $height;
+  min-width: $height;
+}
+
+$_dimensions: ('h': 'height', 'w':'width');
+$_sizes: ('100', '90', '80');
+@each $key, $style in $_dimensions {
+  @each $size in $_sizes {
+    .#{$key}-#{$size} {
+      #{$style}: #{$size} + '%';
+    }
+  }
+}
+
+$_sizes: (
+  'sm' $small-font-size $small-component-height,
+  'md' $medium-font-size $medium-component-height,
+  'lg' $large-font-size $large-component-height,
+);
+
+@each $key, $font-size, $height in $_sizes {
+  .#{$key} {
+    @include font-size($font-size);
+    @include component-height($height);  
+  }
+}

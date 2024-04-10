@@ -1,0 +1,50 @@
+@use './variables' as *;
+
+$_directions: (
+  'left': '10px 0 0 10px', 
+  'right': '0 10px 10px 0', 
+  'top': '10px 10px 0 0 ', 
+  'bottom': '0 0 10px 10px'
+  );
+
+@each $color-key, $color in $colors {  
+  .rounded {
+    border-radius: 10px;
+
+    &-#{$color-key} {
+      @extend .rounded;
+      border-color: $color;
+    }
+
+    @each $direction, $radius in $_directions {
+      &-#{$direction} {
+        border-radius: #{$radius};
+        
+        &-#{$color-key} {
+          @extend .rounded-#{$direction};
+          border-color: #{$color};
+        }
+      }
+    }
+  }
+
+  .border {
+    border: 1px solid;
+
+    &-#{$color-key} {
+      @extend .border;
+      border-color: $color;
+    }
+
+    @each $direction, $radius in $_directions {
+      &-#{$direction} {
+        border-#{$direction}: 1px solid;
+        
+        &-#{$color-key} {
+          @extend .border-#{$direction};
+          border-color: #{$color};
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+.flex {
+  display: flex;
+
+  &-center { 
+    @extend .flex;
+    align-items: center;
+    justify-content: center;
+  }  
+
+  &-vcenter {
+    @extend .flex;
+    align-items: center;
+  }
+
+  &-hcenter {
+    @extend .flex;
+    justify-content: center;
+  }
+
+  &-column {
+    @extend .flex;
+    flex-flow: column;
+  }
+}

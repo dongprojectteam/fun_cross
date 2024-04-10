@@ -1,0 +1,35 @@
+@use './variables' as *;
+
+@mixin font-size($size) {
+  font-size: $size;
+}
+
+@mixin font-color($color) {
+  color: $color;
+}
+
+$_sizes: (
+  'sm': $small-font-size,
+  'md': $medium-font-size,
+  'lg': $large-font-size
+);
+
+@each $key, $size in $_sizes {
+  .t-#{$key} {
+    @include font-size($size);
+  }
+}
+
+@each $color-key, $color in $colors {
+  .t-#{$color-key} {
+    @include font-color($color);
+  }
+}
+
+.t-center {
+  text-align: center;
+}
+
+.t-bold {
+  font-weight: bold;
+}

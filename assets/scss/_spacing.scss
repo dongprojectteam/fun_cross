@@ -1,0 +1,50 @@
+@use './variables' as *;
+
+$_directions: ('l': 'left', 'r':'right', 't':'top', 'b':'bottom');
+
+@each $space in $spaces {
+  $index: index($spaces, $space) - 1;
+  .p-#{$index} {
+    padding: $space;
+  }
+
+  .px-#{$index} {
+    padding-left: $space;
+    padding-right: $space;
+  }
+
+  .py-#{$index} {
+    padding-top: $space;
+    padding-bottom: $space;
+  }
+
+  .m-#{$index} {
+    margin: $space;
+  }
+
+  .mx-#{$index} {
+    margin-left: $space;
+    margin-right: $space;
+  }
+
+  .my-#{$index} {
+    margin-top: $space;
+    margin-bottom: $space;
+  }
+
+  @each $dkey, $direction in $_directions {
+    .p#{$dkey}-#{$index} {
+      padding-#{$direction}: $space;
+    }
+
+    .m#{$dkey}-#{$index} {
+      margin-#{$direction}: $space;
+    }
+  }
+}
+
+@each $dkey, $direction in $_directions {
+  .m#{$dkey}-auto {
+    margin-#{$direction}: auto;
+  }
+}
