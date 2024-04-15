@@ -6,29 +6,44 @@
 </template>
 
 <script lang="ts" setup>
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode!.insertBefore(tag, firstScriptTag);
+const { getCurrentColumn, getCurrentIndex, navigateToDown, navigateToLeft, navigateToRight, navigateToUp, getCurrentYtId } = useColumns()
+const { addCallback } = UseKeyboard()
+const ytId = ref(getCurrentYtId())
 
-let player;
+let player: any = null
+const playVideo = () => player?.playVideo()
+const unMute = () => player?.unMute()
+
+const keyboardCallback = (e: number) => {
+  switch (e) {
+    case FCKeyEvent.Up: navigateToUp(); break
+    case FCKeyEvent.Down: navigateToDown(); break
+    case FCKeyEvent.Left: navigateToLeft(); break
+    case FCKeyEvent.Right: navigateToRight(); break
+  }
+  ytId.value = getCurrentYtId()
+  console.log(ytId.value)
+  player.loadVideoById(ytId.value)
+}
+addCallback(keyboardCallback)
+
+const readyToPlay = ref(false)
 
 window.onYouTubeIframeAPIReady = () => {
-  console.log('onYouTubeIframeAPIReady')
+  readyToPlay.value = true
   player = new YT.Player('youtube-video', {
     width: '100%',
     height: '100%',
-    playerVars: {'autoplay':1, 'mute': 0, 'controls': 0},
-    videoId: 'iiM50xSogao',
+    playerVars: { 'autoplay': 1, 'mute': 0, 'controls': 0 },
+    videoId: ytId.value,
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
     }
-  });
+  })
 }
 
-const playVideo = () => player.playVideo()
-const unMute = () => player.unMute()
+
 
 const onPlayerReady = (event) => {
   console.log(event.target.isMuted())
