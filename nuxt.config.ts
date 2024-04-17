@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       ytKey: process.env.YT_KEY,
+      baseLlmUrl: process.env.BASE_LLM_URL,
     },
   },
   vite: {

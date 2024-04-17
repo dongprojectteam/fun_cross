@@ -15,3 +15,15 @@ interface Column
   contents: Content[]
 }
 
+interface FCCategory
+{
+  name: string
+  score: number
+  search_keyword: string
+}
+
+interface FCContent
+{
+  title: string
+  ytId: string
+}

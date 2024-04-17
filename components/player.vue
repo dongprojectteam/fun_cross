@@ -2,6 +2,7 @@
   <div class='h-100'>
     <!-- Chrome://flags/#autoplay-policy -->
     <div id='youtube-video'></div>
+    <button @click='test'>Test</button>
   </div>
 </template>
 
@@ -43,12 +44,17 @@ window.onYouTubeIframeAPIReady = () => {
   })
 }
 
-
+const test = () => {
+  const { requestRelavantSubject} = useLlm()
+  requestRelavantSubject('Saitama').then((res) => {
+    console.log(res)
+  })
+}
 
 const onPlayerReady = (event) => {
   console.log(event.target.isMuted())
   // unMute()
-  recommend()
+  // recommend()
 }
 
 const onPlayerStateChange = (event) => {
